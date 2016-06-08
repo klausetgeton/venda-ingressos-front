@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class Login extends React.Component {
+export default class Cadastro extends React.Component {
 
 	constructor() {
 			super()
@@ -8,7 +8,6 @@ export default class Login extends React.Component {
 				nome: "Klaus Etgeton",
 			};
 	}
-
 
 	mudarNome(e){
 		const nome = e.target.value;
@@ -18,7 +17,7 @@ export default class Login extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1>Login</h1>
+				<h1>Cadastro</h1>
 				<div class="row">
 					 <form class="col s12">
 						 <div class="row">
