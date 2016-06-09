@@ -12,7 +12,7 @@ import Login from "./pages/Login";
 import Cadastro from "./pages/Cadastro";
 import ListagemEventos from "./pages/ListagemEventos";
 import ComprarIngresso from "./pages/ComprarIngresso";
-import VisualizarDisponibilidades from "./pages/VisualizarDisponibilidades";
+import VisualizarPossibilidades from "./pages/VisualizarPossibilidades";
 
 // Onde a aplicação será rendenizada
 const app = document.getElementById('app');
@@ -24,7 +24,7 @@ ReactDOM.render(
 			<IndexRoute component={ListagemEventos}></IndexRoute>
 			<Route path="login" component={Login}></Route>
 			<Route path="cadastro" component={Cadastro}></Route>
-			<Route path="visualizar-disponibilidades/:eventoId" component={VisualizarDisponibilidades}></Route>
+			<Route path="visualizar-possibilidades/:eventoId" component={VisualizarPossibilidades}></Route>
 			<Route path="comprar-ingresso/:eventoId" component={ComprarIngresso}></Route>
 
 			<Route path="todos" component={Todos}></Route>
