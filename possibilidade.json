@@ -1,0 +1,46 @@
+var possibilidades = {
+    fileiras : [
+        {
+            descricao : "Primeira",
+            acentos : [
+                {
+                    posicao : "A1",
+                    situacao : "reservado"
+                },
+                {
+                    posicao : "A2",
+                    situacao : "reservado"
+                },
+                {
+                    posicao : "A3",
+                    situacao : "selecionado"
+                },
+                {
+                    posicao : "A4",
+                    situacao : "livre"
+                }
+            ]
+        },
+        {
+            descricao : "Segunda",
+            acentos : [
+                {
+                    posicao : "B1",
+                    situacao : "livre"
+                },
+                {
+                    posicao : "B2",
+                    situacao : "livre"
+                },
+                {
+                    posicao : "B3",
+                    situacao : "livre"
+                },
+                {
+                    posicao : "B4",
+                    situacao : "selecionado"
+                }
+            ]
+        }
+    ]
+}
