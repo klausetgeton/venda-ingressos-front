@@ -2,6 +2,7 @@ import React from "react";
 import { IndexLink, Link } from "react-router";
 
 export default class Nav extends React.Component {
+
     constructor() {
         super()
         this.state = {
@@ -23,10 +24,14 @@ export default class Nav extends React.Component {
 
         const { location } = this.props;
         const { collapsed } = this.state;
+        const loginClass = location.pathname.match(/^\/login/) ? "active" : "";
+        const eventosClass = location.pathname.match(/^\/eventos/) ? "active" : "";
+        const cadastroClass = location.pathname.match(/^\/cadastro/) ? "active" : "";
+
         const featuredClass = location.pathname === "/" ? "active" : "";
         const archivesClass = location.pathname.match(/^\/favorites/) ? "active" : "";
         const settingsClass = location.pathname.match(/^\/settings/) ? "active" : "";
-        const loginClass = location.pathname.match(/^\/login/) ? "active" : "";
+        const todosClass = location.pathname.match(/^\/todos/) ? "active" : "";
 
         // Estilos
         const SideNavStyle = {
@@ -38,43 +43,54 @@ export default class Nav extends React.Component {
             }
         };
 
+        //   <li class={archivesClass}>
+        //       <Link to="favorites" onClick={this.collapse.bind(this)}>Favorites</Link>
+        //   </li>
 
         return (
-
-          <nav>
-            <div class="nav-wrapper">
-              <text class="brand-logo">Logoaaa</text>
-              <a data-activates="mobile-demo" class="button-collapse"><i class="material-icons" onClick={this.toggleCollapse.bind(this)}>menu</i></a>
-              <ul class="right hide-on-med-and-down">
-                  <li class={featuredClass}>
-                      <IndexLink to="/" onClick={this.collapse.bind(this)}>Todos</IndexLink>
-                  </li>
-                  <li class={archivesClass}>
-                      <Link to="favorites" onClick={this.collapse.bind(this)}>Favorites</Link>
-                  </li>
-                  <li class={settingsClass}>
-                      <Link to="settings" onClick={this.collapse.bind(this)}>Settings</Link>
-                  </li>
-                  <li class={loginClass}>
-                      <Link to="login" onClick={this.collapse.bind(this)}>Login</Link>
-                  </li>
-              </ul>
-              <ul class="side-nav" id="mobile-demo" style={ collapsed ? SideNavStyle.aberto : SideNavStyle.fechado } >
-                  <li class={featuredClass}>
-                      <IndexLink to="/" onClick={this.collapse.bind(this)}>Todos</IndexLink>
-                  </li>
-                  <li class={archivesClass}>
-                      <Link to="favorites" onClick={this.collapse.bind(this)}>Favorites</Link>
-                  </li>
-                  <li class={settingsClass}>
-                      <Link to="settings" onClick={this.collapse.bind(this)}>Settings</Link>
-                  </li>
-                  <li class={loginClass}>
-                      <Link to="login" onClick={this.collapse.bind(this)}>Login</Link>
-                  </li>
-              </ul>
-            </div>
-          </nav>
+            <nav>
+                <div class="nav-wrapper">
+                    <text class="brand-logo">Logoaaa</text>
+                    <a data-activates="mobile-demo" class="button-collapse"><i class="material-icons" onClick={this.toggleCollapse.bind(this)}>menu</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li class={featuredClass}>
+                            <IndexLink to="/" onClick={this.collapse.bind(this)}>Eventos</IndexLink>
+                        </li>
+                        <li class={loginClass}>
+                            <Link to="login" onClick={this.collapse.bind(this)}>Login</Link>
+                        </li>
+                        <li class={todosClass}>
+                            <Link to="todos" onClick={this.collapse.bind(this)}>Todos</Link>
+                        </li>
+                        <li class={cadastroClass}>
+                            <Link to="cadastro" onClick={this.collapse.bind(this)}>Cadastro</Link>
+                        </li>
+                        <li class={settingsClass}>
+                            <Link to="settings" onClick={this.collapse.bind(this)}>Settings</Link>
+                        </li>
+                    </ul>
+                    <ul class="side-nav" id="mobile-demo" style={ collapsed ? SideNavStyle.aberto : SideNavStyle.fechado } >
+                        <li class={featuredClass}>
+                            <IndexLink to="/" onClick={this.collapse.bind(this)}>Eventos</IndexLink>
+                        </li>
+                        <li class={loginClass}>
+                            <Link to="login" onClick={this.collapse.bind(this)}>Login</Link>
+                        </li>
+                        <li class={todosClass}>
+                            <Link to="todos" onClick={this.collapse.bind(this)}>Todos</Link>
+                        </li>
+                        <li class={cadastroClass}>
+                            <Link to="cadastro" onClick={this.collapse.bind(this)}>Cadastro</Link>
+                        </li>
+                        <li class={settingsClass}>
+                            <Link to="settings" onClick={this.collapse.bind(this)}>Settings</Link>
+                        </li>
+                        <li class={settingsClass}>
+                            <Link to="settings" onClick={this.collapse.bind(this)}>Settings</Link>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         );
 
     }

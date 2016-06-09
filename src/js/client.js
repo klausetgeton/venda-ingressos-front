@@ -10,7 +10,9 @@ import Layout from "./pages/Layout";
 import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import Cadastro from "./pages/Cadastro";
-import Eventos from "./pages/Eventos";
+import ListagemEventos from "./pages/ListagemEventos";
+import ComprarIngresso from "./pages/ComprarIngresso";
+import VisualizarDisponibilidades from "./pages/VisualizarDisponibilidades";
 
 // Onde a aplicação será rendenizada
 const app = document.getElementById('app');
@@ -19,11 +21,13 @@ const app = document.getElementById('app');
 ReactDOM.render(
 	<Router history={hashHistory}>
 		<Route path="/" component={Layout}>
-			<IndexRoute component={Todos}></IndexRoute>
+			<IndexRoute component={ListagemEventos}></IndexRoute>
 			<Route path="login" component={Login}></Route>
-			<Route path="eventos" component={Eventos}></Route>
 			<Route path="cadastro" component={Cadastro}></Route>
+			<Route path="visualizar-disponibilidades/:eventoId" component={VisualizarDisponibilidades}></Route>
+			<Route path="comprar-ingresso/:eventoId" component={ComprarIngresso}></Route>
 
+			<Route path="todos" component={Todos}></Route>
 			<Route path="settings" component={Settings}></Route>
 			<Route path="settings" component={Settings}></Route>
 		</Route>

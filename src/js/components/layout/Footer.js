@@ -12,7 +12,7 @@ export default class Footer extends React.Component {
             <footer style={footerStyles}>
                 <div class="row">
                     <div class="col-lg-12">
-                        <p>Copyright &copy; PerfectTodos.com</p>
+                        <p>Copyright &copy; Ingressos.dev</p>
                     </div>
                 </div>
             </footer>

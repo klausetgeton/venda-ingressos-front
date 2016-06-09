@@ -23,7 +23,7 @@ export default class Login extends React.Component {
 					 <form class="col s12">
 						 <div class="row">
 							 <div class="input-field col s12">
-								 <input value={this.state.nome} onChange={this.mudarNome.bind(this)} placeholder="Nome" id="name" type="text" class="validate" />
+								 <input id="name" type="text" class="validate" />
 								 <label for="name">Nome</label>
 							 </div>
  						 </div>
@@ -41,7 +41,7 @@ export default class Login extends React.Component {
 						 </div>
 						 <div class="row">
 						  	<div class="input-field col s12">
-									 <button class="btn waves-effect waves-light" type="submit" name="action">Logar
+									 <button class="btn waves-effect waves-light" name="action">Logar
 								   		<i class="material-icons right">send</i>
 								   </button>
 								</div>
