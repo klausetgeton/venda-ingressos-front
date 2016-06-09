@@ -43,15 +43,17 @@ export default class Nav extends React.Component {
             }
         };
 
-        //   <li class={archivesClass}>
-        //       <Link to="favorites" onClick={this.collapse.bind(this)}>Favorites</Link>
-        //   </li>
+        const Espacamentos = {
+            MarginLeft : {
+                marginLeft : "10px"
+            }
+        }
 
         return (
             <nav>
                 <div class="nav-wrapper">
-                    <text class="brand-logo">Logoaaa</text>
-                    <a data-activates="mobile-demo" class="button-collapse"><i class="material-icons" onClick={this.toggleCollapse.bind(this)}>menu</i></a>
+                    <text class="brand-logo" style={Espacamentos.MarginLeft} >ingresso.dev</text>
+                    <a data-activates="mobile-demo" class="button-collapse"><i class="material-icons" style={Espacamentos.MarginLeft} onClick={this.toggleCollapse.bind(this)}>menu</i></a>
                     <ul class="right hide-on-med-and-down">
                         <li class={featuredClass}>
                             <IndexLink to="/" onClick={this.collapse.bind(this)}>Eventos</IndexLink>
