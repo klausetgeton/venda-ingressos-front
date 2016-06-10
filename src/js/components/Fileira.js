@@ -5,7 +5,10 @@ export default class extends React.Component {
 
     render() {
 
-        const Acentos = this.props.acentos.map((acento, index) => <Acento key={index} posicao={acento.posicao} situacao={acento.situacao} /> );
+        const { params } = this.props;
+        const { eventoId } = this.props;
+
+        const Acentos = this.props.acentos.map((acento, index) => <Acento key={index} eventoId={eventoId} posicao={acento.posicao} situacao={acento.situacao} /> );
 
         return (
             <div>

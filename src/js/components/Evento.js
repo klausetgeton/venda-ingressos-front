@@ -22,8 +22,7 @@ export default class extends React.Component {
         return (
             <div class="col-md-4" style={Espacamentos.divEvento} >
 
-                <h5>{ titulo }</h5>
-                <h5>{ eventoId }</h5>
+                <h5>{ titulo } - { eventoId }</h5>
 
                 <p>Laaaaaorem ipsum dolor sit amet.</p>
 
