@@ -2,6 +2,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Router, Route, IndexRoute, hashHistory } from "react-router";
+import createBrowserHistory from 'history/lib/createBrowserHistory';
+// Evita a o hash ?k_3i4j2o e o /#/
+//<Router history={createBrowserHistory()} >
+
+// import createHashHistory from 'history/lib/createHashHistory';
+// Evita o hash apenas
+// const history = createHashHistory({ queryKey: false })
 
 // Paginas
 import Favorites from "./pages/Favorites";
@@ -19,13 +26,14 @@ const app = document.getElementById('app');
 
 // Rendeniza o Router como principal
 ReactDOM.render(
-	<Router history={hashHistory}>
+	<Router history={createBrowserHistory()} >
 		<Route path="/" component={Layout}>
 			<IndexRoute component={ListagemEventos}></IndexRoute>
 			<Route path="login" component={Login}></Route>
 			<Route path="cadastro" component={Cadastro}></Route>
 			<Route path="visualizar-possibilidades/:eventoId" component={VisualizarPossibilidades}></Route>
 			<Route path="comprar-ingresso/:eventoId" component={ComprarIngresso}></Route>
+
 
 			<Route path="todos" component={Todos}></Route>
 			<Route path="settings" component={Settings}></Route>
