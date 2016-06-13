@@ -6,6 +6,7 @@ export default AuthenticatedComponent(class Home extends React.Component {
 
     console.log(this.props);
 
-    return (<h1>Hello { this.props.userDetails ? this.props.userDetails.name : 'sem nome' } {this.props.user ? this.props.user.username : ''}</h1>);
+    return (<h1>Hello { this.props.user ? this.props.user.name : 'sem nome' } 
+                      { this.props.user ? this.props.user.email : ''}</h1>);
   }
 });

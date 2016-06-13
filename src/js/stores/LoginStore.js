@@ -6,22 +6,26 @@ class LoginStore extends BaseStore {
 
   constructor() {
     super();
-    this.subscribe(() => this._registerToActions.bind(this))
-    this._user = null;
-    this._jwt = null;
+    this.subscribe(() => this.handleActions.bind(this));
+    this.user = null;
+    this.jwt = null;
+    this.jwtDetails = null;
   }
 
-  _registerToActions(action) {
-      console.log('acao recebida', action);
+  // Quando alguma ação for disparada deve-se ver o que pode ser realizado
+  handleActions(action) {
+
+    console.log('LoginStore:action was fired ==>', action);
+
     switch(action.actionType) {
       case LOGIN_USER:
-        this._jwt = action.jwt;
-        this._userDetails = action.userDetails;
-        this._user = jwt_decode(this._jwt);
+        this.jwt = action.jwt;
+        this.user = action.user;
+        this.jwtDetails = jwt_decode(this.jwt);
         this.emitChange();
         break;
       case LOGOUT_USER:
-        this._user = null;
+        this.user = null;
         this.emitChange();
         break;
       default:
@@ -29,20 +33,20 @@ class LoginStore extends BaseStore {
     };
   }
 
-  get user() {
-    return this._user;
+  getUser() {
+      return this.user;
   }
 
-  get jwt() {
-    return this._jwt;
+  getJWT() {
+      return this.jwt;
   }
 
-  get userDetails(){
-      return this._userDetails;
+  getJWTDetails() {
+      return this.jwtDetails;
   }
 
   isLoggedIn() {
-    return !! this._user;
+    return !! this.user;
   }
 }
 

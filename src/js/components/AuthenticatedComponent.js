@@ -4,37 +4,33 @@ import LoginStore from '../stores/LoginStore';
 export default (ComposedComponent) => {
   return class AuthenticatedComponent extends React.Component {
 
-    // static willTransitionTo(transition) {
-    //   if (!LoginStore.isLoggedIn()) {
-    //     transition.redirect('/login', {}, {'nextPath' : transition.path});
-    //   }
-    // }
-
     constructor() {
       super()
-      this.state = this._getLoginState();
+      this.state = this.getLoginState();
     }
 
-    _getLoginState() {
+    getLoginState() {
       return {
         userLoggedIn: LoginStore.isLoggedIn(),
-        user: LoginStore.user,
-        jwt: LoginStore.jwt,
-        detalhes: LoginStore.userDetails
+        user: LoginStore.getUser(),
+        jwt: LoginStore.getJWT()
       };
     }
 
+    // Quando o usuário logar ou deslogar, deve-se mudar o estado do componente e alterar seu render
+    onChangeLoginStatus() {
+        this.setState(this.getLoginState());
+    }
+
+    // Quando o componente for montando o mesmo deve iniciar a escuta pelo login do usuario
     componentDidMount() {
-      this.changeListener = this._onChange.bind(this);
-      LoginStore.addChangeListener(this.changeListener);
+      this.changeLoginListener = this.onChangeLoginStatus.bind(this);
+      LoginStore.addChangeListener(this.changeLoginListener);
     }
 
-    _onChange() {
-      this.setState(this._getLoginState());
-    }
-
+    // Quando o componente for removido ou remontado o mesmo deve remover a escuta pelo login do usuario
     componentWillUnmount() {
-      LoginStore.removeChangeListener(this.changeListener);
+      LoginStore.removeChangeListener(this.changeLoginListener);
     }
 
     render() {
@@ -43,7 +39,6 @@ export default (ComposedComponent) => {
             {...this.props}
             user={this.state.user}
             jwt={this.state.jwt}
-            userDetails={this.state.detalhes}
             userLoggedIn={this.state.userLoggedIn} />
       );
     }

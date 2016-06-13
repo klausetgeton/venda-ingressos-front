@@ -13,40 +13,36 @@ export default class Nav extends React.Component {
         };
     }
 
-    // constructor() {
-    //     super();
-    //     this.state = this._getLoginState();
-    // }
-
-    _getLoginState() {
-        return {
+    // Quando o usuário logar ou deslogar, deve-se mudar o estado do componente e alterar seu render
+    onChangeLoginStatus() {
+        this.setState({
             userLoggedIn: LoginStore.isLoggedIn()
-        };
+        });
     }
 
+    // Quando o componente for montando o mesmo deve iniciar a escuta pelo login do usuario
     componentDidMount() {
-        this.changeListener = this._onChange.bind(this);
-        LoginStore.addChangeListener(this.changeListener);
+        this.changeLoginListener = this.onChangeLoginStatus.bind(this);
+        LoginStore.addChangeListener(this.changeLoginListener);
     }
 
-    _onChange() {
-        this.setState(this._getLoginState());
-    }
-
+    // Quando o componente for removido ou remontado o mesmo deve remover a escuta pelo login do usuario
     componentWillUnmount() {
-        LoginStore.removeChangeListener(this.changeListener);
+        LoginStore.removeChangeListener(this.changeLoginListener);
     }
 
-    logout(e) {
-        e.preventDefault();
+    // Desloga o usuario da aplicacao
+    logout() {
         AuthService.logout();
     }
 
+    // Troca o estado do menu, se esta aberto ou fechando, inverte a situação
     toggleCollapse() {
         const collapsed = ! this.state.collapsed;
         this.setState({collapsed});
     }
 
+    // Força o fechamento do menu
     collapse() {
         const collapsed = false;
         this.setState({collapsed});
@@ -80,7 +76,6 @@ export default class Nav extends React.Component {
                 marginLeft : "10px"
             }
         }
-
 
         return (
             <nav>
@@ -116,7 +111,7 @@ export default class Nav extends React.Component {
                             { this.state.userLoggedIn ? 'logado' : 'n logado' }
                         </li>
                         <li>
-                            <a href="" onClick={this.logout}>Logout</a>
+                            <a onClick={this.logout.bind(this)}>Logout</a>
                         </li>
                     </ul>
                     <ul class="side-nav" id="mobile-demo" style={ collapsed ? SideNavStyle.aberto : SideNavStyle.fechado } >
@@ -148,7 +143,7 @@ export default class Nav extends React.Component {
                             { this.state.userLoggedIn ? 'logado' : 'n logado' }
                         </li>
                         <li>
-                            <a href="" onClick={this.logout.bind(this)}>Logout</a>
+                            <a onClick={this.logout.bind(this)}>Logout</a>
                         </li>
                     </ul>
                 </div>

@@ -9,8 +9,11 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
 // import createHashHistory from 'history/lib/createHashHistory';
 // Evita o hash apenas
 // const history = createHashHistory({ queryKey: false })
-
 import { browserHistory } from 'react-router';
+
+import LoginActions from './actions/LoginActions';
+import RouteMiddleware from './middleware/RouteMiddleware';
+
 
 // Paginas
 import Favorites from "./pages/Favorites";
@@ -28,34 +31,12 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Home from './components/Home';
 
-import LoginStore from './stores/LoginStore';
-import LoginActions from './actions/LoginActions';
 
-
-// Actions
-// import LoginActions from './actions/LoginActions';
-// PARA DEPOIS, CASO JA TIVER LOGADO
-let jwt = localStorage.getItem('jwt');
-if (jwt) {
-  LoginActions.loginUser(jwt);
-}
-
-// <Route path="signup" component={Signup}></Route>
-// <Route path="home"  component={Home}></Route>
-// <Route path="quote" component={Quote}></Route>
-
+// Ja tenta realizar o login do usuário que estava logado, nao tem controle quando o token vai expirar
+LoginActions.attemptToLoginPreviousUser();
 
 // Onde a aplicação será rendenizada
 const app = document.getElementById('app');
-
-function requireAuth(nextState, replace) {
-  if (!LoginStore.isLoggedIn()) {
-    replace({
-      pathname: '/login',
-      state: { nextPathname: nextState.location.pathname }
-  	});
-  }
-}
 
 // Rendeniza o Router como principal
 ReactDOM.render(
@@ -71,7 +52,7 @@ ReactDOM.render(
 
 			<Route path="login" component={Login}></Route>
 			<Route path="signup" component={Signup}></Route>
-			<Route path="home"  component={Home} onEnter={requireAuth}></Route>
+			<Route path="home"  component={Home} onEnter={RouteMiddleware.requireAuth}></Route>
 		</Route>
 	</Router>, app
 );
