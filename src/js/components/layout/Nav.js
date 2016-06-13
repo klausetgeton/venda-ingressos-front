@@ -1,13 +1,45 @@
 import React from "react";
 import { IndexLink, Link } from "react-router";
+import LoginStore from '../../stores/LoginStore';
+import AuthService from '../../services/AuthService';
 
 export default class Nav extends React.Component {
 
     constructor() {
-        super()
+        super();
         this.state = {
-            collapsed: false
+            collapsed: false,
+            userLoggedIn: LoginStore.isLoggedIn()
         };
+    }
+
+    // constructor() {
+    //     super();
+    //     this.state = this._getLoginState();
+    // }
+
+    _getLoginState() {
+        return {
+            userLoggedIn: LoginStore.isLoggedIn()
+        };
+    }
+
+    componentDidMount() {
+        this.changeListener = this._onChange.bind(this);
+        LoginStore.addChangeListener(this.changeListener);
+    }
+
+    _onChange() {
+        this.setState(this._getLoginState());
+    }
+
+    componentWillUnmount() {
+        LoginStore.removeChangeListener(this.changeListener);
+    }
+
+    logout(e) {
+        e.preventDefault();
+        AuthService.logout();
     }
 
     toggleCollapse() {
@@ -49,6 +81,7 @@ export default class Nav extends React.Component {
             }
         }
 
+
         return (
             <nav>
                 <div class="nav-wrapper">
@@ -58,9 +91,6 @@ export default class Nav extends React.Component {
                         <li class={featuredClass}>
                             <IndexLink to="/" onClick={this.collapse.bind(this)}>Eventos</IndexLink>
                         </li>
-                        <li class={loginClass}>
-                            <Link to="login" onClick={this.collapse.bind(this)}>Login</Link>
-                        </li>
                         <li class={todosClass}>
                             <Link to="todos" onClick={this.collapse.bind(this)}>Todos</Link>
                         </li>
@@ -69,15 +99,30 @@ export default class Nav extends React.Component {
                         </li>
                         <li class={settingsClass}>
                             <Link to="settings" onClick={this.collapse.bind(this)}>Settings</Link>
+                        </li>
+
+
+
+                        <li class={loginClass}>
+                            <Link to="login" onClick={this.collapse.bind(this)}>Login</Link>
+                        </li>
+                        <li class={loginClass}>
+                            <Link to="signup" onClick={this.collapse.bind(this)}>Signup</Link>
+                        </li>
+                        <li class={loginClass}>
+                            <Link to="home" onClick={this.collapse.bind(this)}>home</Link>
+                        </li>
+                        <li>
+                            { this.state.userLoggedIn ? 'logado' : 'n logado' }
+                        </li>
+                        <li>
+                            <a href="" onClick={this.logout}>Logout</a>
                         </li>
                     </ul>
                     <ul class="side-nav" id="mobile-demo" style={ collapsed ? SideNavStyle.aberto : SideNavStyle.fechado } >
                         <li class={featuredClass}>
                             <IndexLink to="/" onClick={this.collapse.bind(this)}>Eventos</IndexLink>
                         </li>
-                        <li class={loginClass}>
-                            <Link to="login" onClick={this.collapse.bind(this)}>Login</Link>
-                        </li>
                         <li class={todosClass}>
                             <Link to="todos" onClick={this.collapse.bind(this)}>Todos</Link>
                         </li>
@@ -87,13 +132,27 @@ export default class Nav extends React.Component {
                         <li class={settingsClass}>
                             <Link to="settings" onClick={this.collapse.bind(this)}>Settings</Link>
                         </li>
-                        <li class={settingsClass}>
-                            <Link to="settings" onClick={this.collapse.bind(this)}>Settings</Link>
+
+
+
+                        <li class={loginClass}>
+                            <Link to="login" onClick={this.collapse.bind(this)}>Login</Link>
+                        </li>
+                        <li class={loginClass}>
+                            <Link to="signup" onClick={this.collapse.bind(this)}>Signup</Link>
+                        </li>
+                        <li class={loginClass}>
+                            <Link to="home" onClick={this.collapse.bind(this)}>home</Link>
+                        </li>
+                        <li>
+                            { this.state.userLoggedIn ? 'logado' : 'n logado' }
+                        </li>
+                        <li>
+                            <a href="" onClick={this.logout.bind(this)}>Logout</a>
                         </li>
                     </ul>
                 </div>
             </nav>
         );
-
     }
 }
