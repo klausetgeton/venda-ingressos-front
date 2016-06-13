@@ -1,8 +1,13 @@
 import React from "react";
-
 import Evento from "../components/Evento";
+import * as PossibilidadeActions from '../actions/PossibilidadeActions';
 
 export default class ListagemEventos extends React.Component {
+
+    componentWillMount() {
+	  // PENSAR MELHOR AONDE COLOCAR A ACAO PARA BUSCAR OS DADOS DOS EVENTOS
+	  PossibilidadeActions.fetchPossibilidades();
+    }
 
      render() {
           const Eventos = [

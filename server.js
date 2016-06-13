@@ -29,7 +29,7 @@ io.on('connection', function(client){
 
 	client.emit('messages', { hello : 'its me' });
 
-  client.on('comprou', function(data){
+    client.on('comprou', function(data){
 		console.log(data);
 		client.broadcast.emit('alguem_comprou', data);
 	});

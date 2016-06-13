@@ -3,10 +3,6 @@ import { Link } from "react-router";
 
 export default class extends React.Component {
 
-    selecionarEvento(e) {
-        console.log(this.props);
-    }
-
     render() {
 
         const { titulo } = this.props;

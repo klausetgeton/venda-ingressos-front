@@ -1,69 +1,44 @@
 import React from "react";
-
+import * as PossibilidadeActions from '../actions/PossibilidadeActions';
 
 const Acento = React.createClass({
 
-    getInitialState: function() {
-
-        return {
-            eventoId: this.props.eventoId,
-            situacao: this.props.situacao,
-            posicao: this.props.posicao,
-            // Variavel de controle para evitar que a pessoa remova acentos que outra pessoa marcou
-            euMarquei : false
-        };
-    },
-
     handleClick: function() {
 
-        const { situacao } = this.state;
-        const { euMarquei } = this.state;
-        const { eventoId } = this.state;
-        const { posicao } = this.state;
+        const { situacao } = this.props;
+        // const { euMarquei } = this.state;
+        const { eventoId } = this.props;
+        const { posicao } = this.props;
 
         var situacaoFutura = '';
 
         if(situacao == 'livre') {
             situacaoFutura = 'selecionado';
-            this.setState({
-                situacao : situacaoFutura,
-                euMarquei : true
-            });
         // Controle para evitar que a pessoa remova acentos que outra pessoa marcou
-        } else if(situacao == 'selecionado' && euMarquei) {
+        // } else if(situacao == 'selecionado' && euMarquei) {
+        } else if(situacao == 'selecionado') {
             situacaoFutura = 'livre';
-            this.setState({
-                situacao : situacaoFutura,
-                euMarquei : true
-            });
         }
 
-        // Aqui deve ser feito a questao do Socket
-        socket.emit('comprou', {
-            evento : eventoId,
-            posicaoSelecionada : posicao,
-            situacao : situacaoFutura
-        });
+        // Implementar o controle do usuario que pode ou nao desmarcar os acentos com base no usuario que comprou ou selecionou
 
+        PossibilidadeActions.mudarStatusAcento(eventoId, posicao, situacaoFutura);
     },
 
-    getClass() {
+    render() {
+
         var additionalClass = "row__seat tooltip ";
 
-        if(this.state.situacao == 'livre') {
+        if(this.props.situacao == 'livre') {
             additionalClass += '';
-        } else if(this.state.situacao == 'selecionado') {
+        } else if(this.props.situacao == 'selecionado') {
             additionalClass += 'row__seat--selected';
         } else {
             additionalClass += 'row__seat--reserved';
         }
 
-        return additionalClass;
-    },
-
-    render() {
         return (
-            <div class={this.getClass()} onClick={this.handleClick} data-tooltip={this.state.posicao + " - " + this.state.situacao}></div>
+            <div class={additionalClass} onClick={this.handleClick} data-tooltip={this.props.posicao + " - " + this.props.situacao}></div>
         );
     }
 });

@@ -14,9 +14,6 @@ class LoginStore extends BaseStore {
 
   // Quando alguma ação for disparada deve-se ver o que pode ser realizado
   handleActions(action) {
-
-    console.log('LoginStore:action was fired ==>', action);
-
     switch(action.actionType) {
       case LOGIN_USER:
         this.jwt = action.jwt;
