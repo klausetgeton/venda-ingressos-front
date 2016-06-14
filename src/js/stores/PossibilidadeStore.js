@@ -1,6 +1,7 @@
 import { EventEmitter } from "events";
-
+import * as CONSTANT from '../constants/PossibilidadeConstants';
 import dispatcher from "../dispatcher";
+
 
 class PossibilidadeStore extends EventEmitter {
 
@@ -85,11 +86,11 @@ class PossibilidadeStore extends EventEmitter {
 	    console.log('ACTION WAS FIRED ==>', action);
 
 		switch(action.type) {
-			case "MUDAR_STATUS_ACENTO": {
+			case CONSTANT.MUDAR_STATUS_ACENTO: {
 				this.mudarStatusAcento(action.eventoId, action.posicao, action.situacao, action.usuarioId);
 				break;
 			}
-			case "RECEIVE_EVENTOS": {
+			case CONSTANT.RECEIVE_POSSIBILIDADES: {
 				this.eventos = action.eventos;
 				this.emit("change");
 				break;

@@ -1,9 +1,11 @@
 import dispatcher from "../dispatcher";
 
+import * as CONSTANT from '../constants/PossibilidadeConstants';
+
 export function mudarStatusAcento(eventoId, posicao, situacao, usuarioId) {
 
     dispatcher.dispatch({
-        type: "MUDAR_STATUS_ACENTO",
+        type: CONSTANT.MUDAR_STATUS_ACENTO,
         eventoId,
         posicao,
         situacao,
@@ -21,13 +23,13 @@ export function mudarStatusAcento(eventoId, posicao, situacao, usuarioId) {
 
 export function fetchPossibilidades() {
 
-    dispatcher.dispatch({type: "FETCH_EVENTOS"});
+    dispatcher.dispatch({type: CONSTANT.FETCH_POSSIBILIDADES});
 
-    fetch('http://localhost:8080/api/possibilidades')
+    fetch(CONSTANT.URL_FETCH_POSSIBILIDADES)
     .then(response => response.json()
     .then(eventos => {
         dispatcher.dispatch({
-            type: "RECEIVE_EVENTOS",
+            type: CONSTANT.RECEIVE_POSSIBILIDADES,
             eventos
         });
     }));
