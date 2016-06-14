@@ -26,11 +26,11 @@ export function fetchPossibilidades() {
     dispatcher.dispatch({type: CONSTANT.FETCH_POSSIBILIDADES});
 
     fetch(CONSTANT.URL_FETCH_POSSIBILIDADES)
-    .then(response => response.json()
+    .then(response => response.json())
     .then(eventos => {
         dispatcher.dispatch({
             type: CONSTANT.RECEIVE_POSSIBILIDADES,
             eventos
         });
-    }));
+    });
 }
