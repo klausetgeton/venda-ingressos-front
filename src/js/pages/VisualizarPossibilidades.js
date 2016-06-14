@@ -1,8 +1,9 @@
 import React from "react";
+import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import Fileira from "../components/Fileira";
 import PossibilidadeStore from '../stores/PossibilidadeStore';
 
-export default class extends React.Component {
+export default AuthenticatedComponent(class VisualizarPossibilidades extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -39,9 +40,10 @@ export default class extends React.Component {
 		if(this.state.possibilidades) {
 			Fileiras = this.state.possibilidades.fileiras.map((fileira, index) => {
 				return <Fileira key={index}
-				eventoId={eventoId}
-				descricao={fileira.descricao}
-				acentos={fileira.acentos} />
+								eventoId={eventoId}
+								descricao={fileira.descricao}
+								acentos={fileira.acentos}
+								user={this.props.user} />
 			});
 		}
 
@@ -66,4 +68,4 @@ export default class extends React.Component {
 			</div>
 		);
 	}
-}
+});

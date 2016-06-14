@@ -1,19 +1,21 @@
 import dispatcher from "../dispatcher";
 
-export function mudarStatusAcento(eventoId, posicao, situacao) {
+export function mudarStatusAcento(eventoId, posicao, situacao, usuarioId) {
 
     dispatcher.dispatch({
         type: "MUDAR_STATUS_ACENTO",
         eventoId,
         posicao,
-        situacao
+        situacao,
+        usuarioId
     });
 
     // Aqui deve ser feito a questao do Socket
     socket.emit('comprou', {
         eventoId,
         posicao,
-        situacao
+        situacao,
+        usuarioId
     });
 }
 

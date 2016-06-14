@@ -5,12 +5,16 @@ const Acento = React.createClass({
 
     handleClick: function() {
 
+        const usuarioId = this.props.user.id;
+        const { usuarioDonoId } = this.props;
         const { situacao } = this.props;
         // const { euMarquei } = this.state;
         const { eventoId } = this.props;
         const { posicao } = this.props;
 
-        var situacaoFutura = '';
+        console.log('usuarioDono', { usuarioDonoId });
+
+        var situacaoFutura = false;
 
         if(situacao == 'livre') {
             situacaoFutura = 'selecionado';
@@ -21,8 +25,10 @@ const Acento = React.createClass({
         }
 
         // Implementar o controle do usuario que pode ou nao desmarcar os acentos com base no usuario que comprou ou selecionou
-
-        PossibilidadeActions.mudarStatusAcento(eventoId, posicao, situacaoFutura);
+        // Caso nao exista mudança ou o usuário nao possa alterar nao deve-se disparar a ação;
+        if( situacaoFutura ) {
+            PossibilidadeActions.mudarStatusAcento(eventoId, posicao, situacaoFutura, usuarioId);
+        }
     },
 
     render() {
