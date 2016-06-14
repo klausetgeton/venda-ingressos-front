@@ -1,4 +1,4 @@
-var EVENTOS = [{
+var POSSIBILIDADES = [{
                 eventoId : 1,
                 fileiras : [
                             {
@@ -313,4 +313,4 @@ var EVENTOS = [{
             }
         ];
 
-module.exports = EVENTOS;
+module.exports = POSSIBILIDADES;

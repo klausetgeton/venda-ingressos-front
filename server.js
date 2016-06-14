@@ -30,10 +30,10 @@ const socketIO = require('socket.io')(server);
 //////////////////////////////////////////////////////
 // Routes
 //////////////////////////////////////////////////////
-const EVENTOS = require("./eventos.js");
+var POSSIBILIDADES = require("./possibilidades.js");
 app.get('/api/possibilidades', (request, response) => {
     try {
-        response.status(200).json(EVENTOS);
+        response.status(200).json(POSSIBILIDADES);
     } catch (e) {
         response.sendStatus(401);
     }
@@ -58,14 +58,18 @@ server.listen(PORT, (error) => {
     }
 });
 
+const SocketAction = require("./Socket/SocketAction.js");
+
+
 // Socket actions
 socketIO.on('connection', function(client) {
 	console.log('Usuario conectou!');
 
 	client.emit('messages', { hello : 'its me' });
 
-    client.on('comprou', function(data){
-		console.log(data);
-		client.broadcast.emit('alguem_comprou', data);
+    client.on('comprou', function(dadosCompra) {
+        SocketAction.setNovoStatusPossibilidade(POSSIBILIDADES, dadosCompra);
+        console.log(POSSIBILIDADES, dadosCompra);
+		client.broadcast.emit('alguem_comprou', dadosCompra);
 	});
 });
