@@ -1,5 +1,6 @@
 import { browserHistory } from 'react-router';
 
+
 import AppDispatcher from '../dispatcher.js';
 import { LOGIN_USER, LOGOUT_USER } from '../constants/LoginConstants.js';
 
@@ -20,8 +21,7 @@ class LoginActions {
             localStorage.setItem('user', JSON.stringify(user));
         }
 
-        // Redireciona para outro componente
-        browserHistory.push( redirectTo ? redirectTo : '/home');
+        browserHistory.push( redirectTo );
     }
 
     logoutUser(redirectTo) {

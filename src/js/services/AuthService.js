@@ -6,7 +6,20 @@ import LoginStore from '../stores/LoginStore.js';
 
 class AuthService {
 
-    login(email, password) {
+    constructor(){
+        this.redirectTo = '/';
+    }
+
+    afterLoginRedirectTo(redirectTo){
+        this.redirectTo = redirectTo;
+        return this;
+    }
+
+    getRedirect() {
+        return this.redirectTo;
+    }
+
+    attempt(email, password) {
         return this.handleAuth(when(request({
             url: LOGIN_URL,
             method: 'POST',
@@ -37,14 +50,14 @@ class AuthService {
         });
     }
 
-    getUserDetails = function(token, callBack) {
-        const HeaderConfig = { headers: { 'Authorization': `Bearer ${token}` }};
-
-        fetch('http://ingressos.dev/api/user', HeaderConfig)
-        .then(response => response.json()
-        .then(data => data.user ))
-        .then(usuario => callBack(usuario));
-    }
+    // getUserDetails = function(token, callBack) {
+    //     const HeaderConfig = { headers: { 'Authorization': `Bearer ${token}` }};
+    //
+    //     fetch('http://ingressos.dev/api/user', HeaderConfig)
+    //     .then(response => response.json()
+    //     .then(data => data.user ))
+    //     .then(usuario => callBack(usuario));
+    // }
 
     signup(email, password, extra) {
         return this.handleAuth(when(request({
@@ -59,11 +72,14 @@ class AuthService {
     }
 
     handleAuth(loginPromise) {
+
+        var redirectTo = this.getRedirect();
+
         return loginPromise.then(function(response) {
             var jwt = response.id_token;
             var user = response.user;
 
-            LoginActions.loginUser(jwt, user);
+            LoginActions.loginUser(jwt, user, redirectTo);
 
             return true;
         });

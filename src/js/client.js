@@ -44,8 +44,8 @@ ReactDOM.render(
 		<Route path="/" component={Layout}>
 			<IndexRoute component={ListagemEventos}></IndexRoute>
 			<Route path="cadastro" component={Cadastro}></Route>
-			<Route path="visualizar-possibilidades/:eventoId" component={VisualizarPossibilidades}></Route>
-			<Route path="comprar-ingresso/:eventoId" component={ComprarIngresso}></Route>
+			<Route path="visualizar-possibilidades/:eventoId" component={VisualizarPossibilidades} onEnter={RouteMiddleware.requireAuth}></Route>
+			<Route path="comprar-ingresso/:eventoId" component={ComprarIngresso} onEnter={RouteMiddleware.requireAuth}></Route>
 			<Route path="todos" component={Todos}></Route>
 			<Route path="settings" component={Settings}></Route>
 			<Route path="settings" component={Settings}></Route>

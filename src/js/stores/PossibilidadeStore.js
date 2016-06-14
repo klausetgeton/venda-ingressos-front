@@ -82,7 +82,7 @@ class PossibilidadeStore extends EventEmitter {
 
 	handleActions(action) {
 
-	    console.log('PossibilidadeStore:action was fired ==>', action);
+	    console.log('ACTION WAS FIRED ==>', action);
 
 		switch(action.type) {
 			case "MUDAR_STATUS_ACENTO": {

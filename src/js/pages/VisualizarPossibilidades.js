@@ -33,8 +33,6 @@ export default AuthenticatedComponent(class VisualizarPossibilidades extends Rea
 		const { params } = this.props;
 		const { eventoId } = params;
 
-		console.log(window.socket);
-
 		var Fileiras = null;
 
 		if(this.state.possibilidades) {

@@ -34,6 +34,7 @@ export default (ComposedComponent) => {
     }
 
     render() {
+    
       return (
           <ComposedComponent
             {...this.props}

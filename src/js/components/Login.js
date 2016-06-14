@@ -14,11 +14,11 @@ export default class Login extends React.Component {
   }
 
   login(e) {
-      console.log('router', this.props.router);
-      console.log('propriedades do elemento login', this.props);
     e.preventDefault();
 
-    Auth.login(this.state.user, this.state.password)
+    const nextDestiny = this.props.location.state.nextPathname;
+
+    Auth.afterLoginRedirectTo(nextDestiny).attempt(this.state.user, this.state.password)
       .catch(function(err) {
         alert("There's an error logging in");
         console.log("Error logging in", err);

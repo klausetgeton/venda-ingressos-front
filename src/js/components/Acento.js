@@ -12,8 +12,6 @@ const Acento = React.createClass({
         const { eventoId } = this.props;
         const { posicao } = this.props;
 
-        console.log('usuarioDono', { usuarioDonoId });
-
         var situacaoFutura = false;
 
         if(situacao == 'livre') {
