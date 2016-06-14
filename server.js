@@ -2,29 +2,64 @@ const http = require('http');
 const express = require('express');
 
 const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+const bodyParser = require('body-parser');
 const webpackConfig = require('./webpack.config');
 const compiler = webpack(webpackConfig);
+const PORT = process.env.PORT || 8080;
 
 // Create the app, setup the webpack middleware
 const app = express();
-app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: false,
-  publicPath: webpackConfig.output.publicPath,
+app.use(webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: webpackConfig.output.publicPath
 }));
-
-app.use(require('webpack-hot-middleware')(compiler));
-
-// You probably have other paths here
+app.use(webpackHotMiddleware(compiler));
+app.use(bodyParser.json());
+// Serve content from 'src' folder
 app.use(express.static('src'));
 
+//////////////////////////////////////////////////////
+// Enable HTTP server with Socket.IO support
+//////////////////////////////////////////////////////
 const server = new http.Server(app);
-const io = require('socket.io')(server);
+const socketIO = require('socket.io')(server);
+////////////////////////////////////////////////////////////////
 
-const PORT = process.env.PORT || 8080;
+//////////////////////////////////////////////////////
+// Routes
+//////////////////////////////////////////////////////
+const EVENTOS = require("./eventos.js");
+app.get('/api/possibilidades', (request, response) => {
+    try {
+        response.status(200).json(EVENTOS);
+    } catch (e) {
+        response.sendStatus(401);
+    }
+});
 
-server.listen(PORT);
 
-io.on('connection', function(client){
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////
+// Enable listeners on a specific port
+server.listen(PORT, (error) => {
+    if (error) {
+        console.error(error);
+    } else {
+        console.info(`==> 🌎 Listening on port ${PORT}. Open up http://localhost:${PORT}/ in your browser.`);
+    }
+});
+
+// Socket actions
+socketIO.on('connection', function(client) {
 	console.log('Usuario conectou!');
 
 	client.emit('messages', { hello : 'its me' });
@@ -33,11 +68,4 @@ io.on('connection', function(client){
 		console.log(data);
 		client.broadcast.emit('alguem_comprou', data);
 	});
-
 });
-
-// io.on('connection', (socket) => {
-//   // <insert relevant code here>
-//   console.log('Usuario conectou!');
-//   socket.broadcast.emit('alguem_comprou', {nome: "Klaus Etgeton"});
-// });
