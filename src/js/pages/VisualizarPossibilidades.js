@@ -22,7 +22,7 @@ export default AuthenticatedComponent(class VisualizarPossibilidades extends Rea
 	}
 
 	onReceivePossibilidades() {
-		console.log('Recevento Possibilidades:',  PossibilidadeStore.getAllFrom(this.props.params.eventoId));
+		// console.log('Recevento Possibilidades:',  PossibilidadeStore.getAllFrom(this.props.params.eventoId));
 		this.setState({
 			possibilidades : PossibilidadeStore.getAllFrom(this.props.params.eventoId)
 		});

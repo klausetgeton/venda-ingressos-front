@@ -44,9 +44,9 @@ class PossibilidadeStore extends EventEmitter {
 					acento.situacao = situacao;
 
 					// Liberar o acento para outro usuario utilizar
-					if(acento.situacao == 'livre'){
+					if(acento.situacao == CONSTANT.ACENTO_LIVRE){
 						acento.usuarioDonoId = null;
-					} else if(acento.situacao == 'selecionado') {
+					} else if(acento.situacao == CONSTANT.ACENTO_SELECINADO || acento.situacao == CONSTANT.ACENTO_RESERVADO) {
 						acento.usuarioDonoId = usuarioId;
 					}
 

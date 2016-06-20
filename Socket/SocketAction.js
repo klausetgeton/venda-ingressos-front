@@ -31,7 +31,7 @@ const SocketAction = class SocketAction {
 					// Liberar o acento para outro usuario utilizar
 					if(acento.situacao == 'livre'){
 						acento.usuarioDonoId = null;
-					} else if(acento.situacao == 'selecionado') {
+					} else if(acento.situacao == 'selecionado' || acento.situacao == 'reservado' ) {
 						acento.usuarioDonoId = usuarioId;
 					}
 

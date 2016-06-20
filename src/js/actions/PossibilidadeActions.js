@@ -12,7 +12,14 @@ export function mudarStatusAcento(eventoId, posicao, situacao, usuarioId) {
         usuarioId
     });
 
-    // Aqui deve ser feito a questao do Socket
+}
+
+export function notificarMudancaStatusAcento(eventoId, posicao, situacao, usuarioId) {
+    mudarStatusAcento(eventoId, posicao, situacao, usuarioId);
+
+    // Caso o acento tenha sido selecionado a situacao deve aparecer como reservado para o outro usuario
+    situacao = (situacao == CONSTANT.ACENTO_SELECINADO) ? CONSTANT.ACENTO_RESERVADO : situacao;
+
     socket.emit('comprou', {
         eventoId,
         posicao,
@@ -34,3 +41,14 @@ export function fetchPossibilidades() {
         });
     });
 }
+
+
+// RECEBE AS AÇÕES DO SOCKET
+socket.on('alguem_comprou', (data) => {
+    mudarStatusAcento(data.eventoId,
+        data.posicao,
+        data.situacao,
+        data.usuarioId
+    );
+    console.log('alguem comprou', data)
+});
