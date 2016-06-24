@@ -2,6 +2,7 @@ import React from "react";
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import Fileira from "../components/Fileira";
 import PossibilidadeStore from '../stores/PossibilidadeStore';
+import * as PossibilidadeActions from '../actions/PossibilidadeActions';
 
 export default AuthenticatedComponent(class VisualizarPossibilidades extends React.Component {
 
@@ -9,12 +10,16 @@ export default AuthenticatedComponent(class VisualizarPossibilidades extends Rea
 		super(props);
 		this.onReceivePossibilidades = this.onReceivePossibilidades.bind(this);
 		this.state = {
-			possibilidades : PossibilidadeStore.getAllFrom(this.props.params.eventoId)
+			possibilidades : PossibilidadeStore.getPossibilidadesEvento()
 		};
 	}
 
 	componentWillMount() {
       PossibilidadeStore.on("change", this.onReceivePossibilidades);
+
+	  console.log('solicitando download de ', this.props.params.eventoId);
+
+	  PossibilidadeActions.fetchPossibilidades(this.props.params.eventoId);
     }
 
 	componentWillUnmount() {
@@ -22,9 +27,8 @@ export default AuthenticatedComponent(class VisualizarPossibilidades extends Rea
 	}
 
 	onReceivePossibilidades() {
-		// console.log('Recevento Possibilidades:',  PossibilidadeStore.getAllFrom(this.props.params.eventoId));
 		this.setState({
-			possibilidades : PossibilidadeStore.getAllFrom(this.props.params.eventoId)
+			possibilidades : PossibilidadeStore.getPossibilidadesEvento()
 		});
 	}
 
@@ -45,16 +49,17 @@ export default AuthenticatedComponent(class VisualizarPossibilidades extends Rea
 			});
 		}
 
+		// COMENTÁRIO DENTRO DO RENDER
+		// {/* Fim - Possibilidades. */}
+
 		return (
 			<div>
 				<div>
 					<h1 class="plan__title">Selecione os acentos</h1>
 
-      			    {/* Possibilidades. */}
 					<div class="rows rows--mini">
 						{Fileiras ? Fileiras: 'Carregando...'}
 					</div>
-					{/* Fim - Possibilidades. */}
 
 					<ul class="legend">
 						<li class="legend__item legend__item--free">Disponível</li>

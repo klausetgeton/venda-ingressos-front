@@ -7,12 +7,12 @@ class PossibilidadeStore extends EventEmitter {
 
 	constructor() {
 		super()
-		this.eventos = null;
+		this.evento = null;
 	}
 
 	mudarStatusAcento(eventoId, posicao, situacao, usuarioId) {
 
-		var evento = this.getAllFrom(eventoId);
+		var evento = this.getPossibilidadesEvento();
 
 		const fileirasLength = evento.fileiras.length;
 
@@ -51,22 +51,8 @@ class PossibilidadeStore extends EventEmitter {
 		this.emit("change");
 	}
 
-	getAllFrom(eventoId) {
-
-		var eventoEncontrado = null;
-
-		if(this.eventos) {
-			var eventoLength = this.eventos.length;
-
-			for (var i = 0; i < eventoLength; i++) {
-				if(this.eventos[i].eventoId == eventoId) {
-				 	eventoEncontrado = this.eventos[i];
-					break;
-				}
-			}
-		}
-
-		return eventoEncontrado;
+	getPossibilidadesEvento() {
+		return this.evento;
 	}
 
 	handleActions(action) {
@@ -77,7 +63,7 @@ class PossibilidadeStore extends EventEmitter {
 				break;
 			}
 			case CONSTANT.RECEIVE_POSSIBILIDADES: {
-				this.eventos = action.eventos;
+				this.evento = action.evento;
 				this.emit("change");
 				break;
 			}

@@ -28,16 +28,16 @@ export function notificarMudancaStatusAcento(eventoId, posicao, situacao, usuari
     });
 }
 
-export function fetchPossibilidades() {
+export function fetchPossibilidades(eventoId) {
 
     dispatcher.dispatch({type: CONSTANT.FETCH_POSSIBILIDADES});
 
-    fetch(CONSTANT.URL_FETCH_POSSIBILIDADES)
+    fetch(CONSTANT.URL_FETCH_POSSIBILIDADES + eventoId)
     .then(response => response.json())
-    .then(eventos => {
+    .then(evento => {
         dispatcher.dispatch({
             type: CONSTANT.RECEIVE_POSSIBILIDADES,
-            eventos
+            evento
         });
     });
 }

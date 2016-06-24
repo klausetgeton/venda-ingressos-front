@@ -15,14 +15,11 @@ export default class ListagemEventos extends React.Component {
     }
 
     componentWillMount() {
-      EventoStore.on("change", this.onReceiveEventos);
+        // Registra a escuta para quando houver alteração dos Eventos
+        EventoStore.on("change", this.onReceiveEventos);
 
-      // PENSAR MELHOR AONDE COLOCAR A ACAO PARA BUSCAR OS DADOS DOS EVENTOS
-      // DEVE-SE BUSCAR AS POSSIBILIDADES DE CADA EVENTO E NAO GERAL
-      PossibilidadeActions.fetchPossibilidades();
-
-      EventoActions.fetchEventos();
-
+        // Solicita o download dos Eventos
+        EventoActions.fetchEventos();
     }
 
 	componentWillUnmount() {
