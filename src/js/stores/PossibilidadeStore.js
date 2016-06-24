@@ -10,18 +10,6 @@ class PossibilidadeStore extends EventEmitter {
 		this.eventos = null;
 	}
 
-	// createTodo(text) {
-	// 	const id = Date.now();
-	//
-	// 	this.eventos.push({
-	// 		id,
-	// 		text,
-	// 		complete: false,
-	// 	});
-	//
-	// 	this.emit("change");
-	// }
-
 	mudarStatusAcento(eventoId, posicao, situacao, usuarioId) {
 
 		var evento = this.getAllFrom(eventoId);
@@ -82,8 +70,6 @@ class PossibilidadeStore extends EventEmitter {
 	}
 
 	handleActions(action) {
-
-	    console.log('ACTION WAS FIRED ==>', action);
 
 		switch(action.type) {
 			case CONSTANT.MUDAR_STATUS_ACENTO: {

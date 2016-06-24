@@ -6,6 +6,7 @@ export default class extends React.Component {
     render() {
 
         const { titulo } = this.props;
+        const { descricao } = this.props;
         const { eventoId } = this.props;
 
         const Espacamentos = {
@@ -20,7 +21,7 @@ export default class extends React.Component {
 
                 <h5>{ titulo } - { eventoId }</h5>
 
-                <p>Laaaaaorem ipsum dolor sit amet.</p>
+                <p> {descricao} </p>
 
                 <Link to={"visualizar-possibilidades/" + eventoId } teste={eventoId} >
                     <button class="btn btn-default">Selecionar acento</button>
