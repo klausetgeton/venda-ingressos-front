@@ -22,6 +22,8 @@ const EventoPossibilidades = class EventoPossibilidades {
         const posicao = dadosCompra.posicao;
         const situacao = dadosCompra.situacao;
         const usuarioId = dadosCompra.usuarioId;
+        const loteId = dadosCompra.loteId;
+        const valor = dadosCompra.valor;
 
 		// var evento = this.findEventoById(eventoId);
         var evento = this.getPossibilidadesEvento(eventoId);
@@ -46,8 +48,12 @@ const EventoPossibilidades = class EventoPossibilidades {
 					// Liberar o acento para outro usuario utilizar
 					if(acento.situacao == 'livre'){
 						acento.usuarioDonoId = null;
+                        acento.loteId = null;
+                        acento.valor = null;
 					} else if(acento.situacao == 'selecionado' || acento.situacao == 'reservado' ) {
 						acento.usuarioDonoId = usuarioId;
+                        acento.loteId = loteId;
+                        acento.valor = valor;
 					}
 
 					encontrou = true;

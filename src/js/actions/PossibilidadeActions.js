@@ -14,20 +14,22 @@ socket.on('alguem_comprou', (data) => {
 });
 
 
-export function mudarStatusAcento(eventoId, posicao, situacao, usuarioId) {
+export function mudarStatusAcento(eventoId, posicao, situacao, usuarioId, loteId, valor) {
 
     dispatcher.dispatch({
         type: CONSTANT.MUDAR_STATUS_ACENTO,
         eventoId,
         posicao,
         situacao,
-        usuarioId
+        usuarioId,
+        loteId,
+        valor
     });
 
 }
 
-export function notificarMudancaStatusAcento(eventoId, posicao, situacao, usuarioId) {
-    mudarStatusAcento(eventoId, posicao, situacao, usuarioId);
+export function notificarMudancaStatusAcento(eventoId, posicao, situacao, usuarioId, loteId, valor) {
+    mudarStatusAcento(eventoId, posicao, situacao, usuarioId, loteId, valor);
 
     // Caso o acento tenha sido selecionado a situacao deve aparecer como reservado para o outro usuario
     situacao = (situacao == CONSTANT.ACENTO_SELECINADO) ? CONSTANT.ACENTO_RESERVADO : situacao;
@@ -36,7 +38,9 @@ export function notificarMudancaStatusAcento(eventoId, posicao, situacao, usuari
         eventoId,
         posicao,
         situacao,
-        usuarioId
+        usuarioId,
+        loteId,
+        valor
     });
 }
 

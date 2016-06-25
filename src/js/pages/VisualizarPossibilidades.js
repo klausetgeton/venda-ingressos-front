@@ -4,13 +4,17 @@ import Fileira from "../components/Fileira";
 import PossibilidadeStore from '../stores/PossibilidadeStore';
 import * as PossibilidadeActions from '../actions/PossibilidadeActions';
 
+
+import OpcaoModalidade from "../components/OpcaoModalidade";
+
 export default AuthenticatedComponent(class VisualizarPossibilidades extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.onReceivePossibilidades = this.onReceivePossibilidades.bind(this);
 		this.state = {
-			possibilidades : PossibilidadeStore.getPossibilidadesEvento()
+			possibilidades : PossibilidadeStore.getPossibilidadesEvento(),
+			modalidade : null
 		};
 	}
 
@@ -33,7 +37,7 @@ export default AuthenticatedComponent(class VisualizarPossibilidades extends Rea
 	}
 
 	handleBuy() {
-		
+
 		var acentosSelecionados = PossibilidadeStore.getAcentosDoUsuario(this.user.id);
 
 		if( ! acentosSelecionados.length > 0 ) {
@@ -43,12 +47,18 @@ export default AuthenticatedComponent(class VisualizarPossibilidades extends Rea
 		PossibilidadeActions.comprarAcentos(acentosSelecionados);
 	}
 
+	definirModalidade(modalidade){
+		this.setState({modalidade});
+	}
+
 	render() {
 
 		const { params } = this.props;
 		const { eventoId } = params;
 
 		var Fileiras = null;
+		var InformacoesDoLocal = null;
+		var Lotes = null;
 
 		if(this.state.possibilidades) {
 			Fileiras = this.state.possibilidades.fileiras.map((fileira, index) => {
@@ -56,17 +66,51 @@ export default AuthenticatedComponent(class VisualizarPossibilidades extends Rea
 								eventoId={eventoId}
 								descricao={fileira.descricao}
 								acentos={fileira.acentos}
-								user={this.props.user} />
+								user={this.props.user}
+								modalidade={this.state.modalidade} />
 			});
+
+			InformacoesDoLocal = (<div class="centralizar">
+								      Local: {this.state.possibilidades.local.nome}, {this.state.possibilidades.local.descricao}
+								  </div>
+								);
+
+			Lotes = this.state.possibilidades.lotes.map((lote, index) => {
+				return (
+					<div key={index}>
+						<OpcaoModalidade
+							key={ (new Date().getTime())}
+							mudarModalidade={this.definirModalidade.bind(this)}
+							descricao="Masculino"
+							loteId={lote.id}
+							valor={lote.valor_masculino} />
+						<OpcaoModalidade
+							key={ (new Date().getTime() +1) }
+							mudarModalidade={this.definirModalidade.bind(this)}
+							descricao="Feminino"
+							loteId={lote.id}
+							valor={lote.valor_feminino} />
+					</div>
+				);
+			});
+
+
 		}
 
 		// COMENTÁRIO DENTRO DO RENDER
 		// {/* Fim - Possibilidades. */}
 
+
 		return (
 			<div>
 				<div>
 					<h1 class="plan__title">Selecione os acentos</h1>
+
+					{ InformacoesDoLocal }
+
+					<div class="centralizar">
+						{ Lotes }
+					</div>
 
 					<div class="rows rows--mini">
 						{Fileiras ? Fileiras: 'Carregando...'}

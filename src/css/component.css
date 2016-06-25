@@ -17,6 +17,10 @@ action
 action--buy
 */
 
+.centralizar{
+    text-align: center;
+}
+
 .rows--mini {
   width: 230px;
   margin: 0 auto;

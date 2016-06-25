@@ -13,8 +13,13 @@ const Acento = React.createClass({
         // const { euMarquei } = this.state;
         const { eventoId } = this.props;
         const { posicao } = this.props;
+        const { modalidade } = this.props;
 
-        console.log('usuarioId', usuarioId , 'usuarioDonoId', usuarioDonoId);
+        if( ! modalidade) {
+            return alert('Defina a modalidade!');
+        }
+
+        // console.log('usuarioId', usuarioId , 'usuarioDonoId', usuarioDonoId);
 
         // Caso o acento tenha dono e o dono não for outra pessoa
         if(usuarioDonoId != null && usuarioId != usuarioDonoId) {
@@ -34,7 +39,11 @@ const Acento = React.createClass({
         // Implementar o controle do usuario que pode ou nao desmarcar os acentos com base no usuario que comprou ou selecionou
         // Caso nao exista mudança ou o usuário nao possa alterar nao deve-se disparar a ação;
         if( situacaoFutura ) {
-            PossibilidadeActions.notificarMudancaStatusAcento(eventoId, posicao, situacaoFutura, usuarioId);
+
+            var modalidadeLote = modalidade.split(':');
+            var loteId = modalidadeLote[0];
+            var valor = modalidadeLote[1];
+            PossibilidadeActions.notificarMudancaStatusAcento(eventoId, posicao, situacaoFutura, usuarioId, loteId, valor);
         }
     },
 

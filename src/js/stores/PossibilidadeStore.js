@@ -10,7 +10,7 @@ class PossibilidadeStore extends EventEmitter {
 		this.evento = null;
 	}
 
-	mudarStatusAcento(eventoId, posicao, situacao, usuarioId) {
+	mudarStatusAcento(eventoId, posicao, situacao, usuarioId, loteId, valor) {
 
 		var evento = this.getPossibilidadesEvento();
 
@@ -34,8 +34,12 @@ class PossibilidadeStore extends EventEmitter {
 					// Liberar o acento para outro usuario utilizar
 					if(acento.situacao == CONSTANT.ACENTO_LIVRE){
 						acento.usuarioDonoId = null;
+						acento.loteId = null;
+						acento.valor = null;
 					} else if(acento.situacao == CONSTANT.ACENTO_SELECINADO || acento.situacao == CONSTANT.ACENTO_RESERVADO) {
 						acento.usuarioDonoId = usuarioId;
+						acento.loteId = loteId;
+						acento.valor = valor;
 					}
 
 					encontrou = true;
@@ -70,7 +74,7 @@ class PossibilidadeStore extends EventEmitter {
 
 		switch(action.type) {
 			case CONSTANT.MUDAR_STATUS_ACENTO: {
-				this.mudarStatusAcento(action.eventoId, action.posicao, action.situacao, action.usuarioId);
+				this.mudarStatusAcento(action.eventoId, action.posicao, action.situacao, action.usuarioId, action.loteId, action.valor);
 				break;
 			}
 			case CONSTANT.RECEIVE_POSSIBILIDADES: {
