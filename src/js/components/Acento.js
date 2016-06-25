@@ -14,6 +14,12 @@ const Acento = React.createClass({
         const { eventoId } = this.props;
         const { posicao } = this.props;
         const { modalidade } = this.props;
+        const { disponivel } = this.props;
+
+        if( ! disponivel)
+        {
+            return alert('Este acento já foi comprado!');
+        }
 
         if( ! modalidade) {
             return alert('Defina a modalidade!');
@@ -32,7 +38,7 @@ const Acento = React.createClass({
             situacaoFutura = CONSTANT.ACENTO_SELECINADO;
         // Controle para evitar que a pessoa remova acentos que outra pessoa marcou
         // } else if(situacao == 'selecionado' && euMarquei) {
-        } else if(situacao == CONSTANT.ACENTO_SELECINADO || situacao == CONSTANT.ACENTO_RESERVADO ) {
+        } else if(situacao == CONSTANT.ACENTO_SELECINADO || situacao == CONSTANT.ACENTO_RESERVADO && disponivel ) {
             situacaoFutura = CONSTANT.ACENTO_LIVRE;
         }
 

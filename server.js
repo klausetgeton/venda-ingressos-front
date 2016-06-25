@@ -96,9 +96,13 @@ app.post('/api/comprar-acentos', (request, response) => {
         .then(response => response.json())
         .then(retorno => {
             console.log('RETORNO DA COMPRA', retorno);
-            response.status(200).json(retorno);
+
+            if(retorno.ingressos_vendidos){
+                EventoPossibilidades.definirAcentosComprados(request.body.eventoId, request.body.acentos);
+                response.status(200).json(retorno);
+            }
         });
-        
+
     } catch (e) {
         response.sendStatus(401);
     }

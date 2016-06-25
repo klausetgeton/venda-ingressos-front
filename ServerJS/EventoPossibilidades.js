@@ -6,13 +6,52 @@ const EventoPossibilidades = class EventoPossibilidades {
         this.eventoPossibilidades = {};
     }
 
-
     getPossibilidadesEvento(eventoId) {
         return this.eventoPossibilidades[eventoId];
     }
 
     salvarPossibilidades(eventoId, possibilidades){
         this.eventoPossibilidades[eventoId] = possibilidades;
+    }
+
+    definirAcentosComprados(eventoId, acentosComprados)
+    {
+        acentosComprados.forEach((acentoComprado) => {
+            var acento = this.procurarAcentoEvento(eventoId, acentoComprado.posicao);
+            acento.disponivel = false;
+        });
+    }
+
+    procurarAcentoEvento(eventoId, posicaoAcento) {
+        var evento = this.getPossibilidadesEvento(eventoId);
+
+        const fileirasLength = evento.fileiras.length;
+
+        var encontrou = false;
+        var acentoProcurado = null;
+
+        for (var i = 0; i < fileirasLength; i++) {
+
+            var fileira = evento.fileiras[i];
+            var acentosLength = evento.fileiras[i].acentos.length;
+
+            for (var j = 0; j < acentosLength; j++) {
+                var acento = evento.fileiras[i].acentos[j];
+
+                // Atualizar o acento correto
+                if( acento.posicao == posicaoAcento) {
+                    acentoProcurado = acento;
+                    encontrou = true;
+                    break;
+                }
+            }
+
+            if(encontrou) {
+                break;
+            }
+        }
+
+        return acentoProcurado;
     }
 
 
@@ -25,67 +64,22 @@ const EventoPossibilidades = class EventoPossibilidades {
         const loteId = dadosCompra.loteId;
         const valor = dadosCompra.valor;
 
-		// var evento = this.findEventoById(eventoId);
-        var evento = this.getPossibilidadesEvento(eventoId);
+        var acento = this.procurarAcentoEvento(eventoId, posicao);
 
-	    const fileirasLength = evento.fileiras.length;
-
-		var encontrou = false;
-
-		for (var i = 0; i < fileirasLength; i++) {
-
-			var fileira = evento.fileiras[i];
-			var acentosLength = evento.fileiras[i].acentos.length;
-
-			for (var j = 0; j < acentosLength; j++) {
-				var acento = evento.fileiras[i].acentos[j];
-
-				// Atualizar o acento correto
-				if( acento.posicao == posicao) {
-
-					acento.situacao = situacao;
-
-					// Liberar o acento para outro usuario utilizar
-					if(acento.situacao == 'livre'){
-						acento.usuarioDonoId = null;
-                        acento.loteId = null;
-                        acento.valor = null;
-					} else if(acento.situacao == 'selecionado' || acento.situacao == 'reservado' ) {
-						acento.usuarioDonoId = usuarioId;
-                        acento.loteId = loteId;
-                        acento.valor = valor;
-					}
-
-					encontrou = true;
-					break;
-				}
-			}
-
-
-
-			if(encontrou) {
-				break;
-			}
+        acento.situacao = situacao;
+		// Liberar o acento para outro usuario utilizar
+		if(acento.situacao == 'livre'){
+			acento.usuarioDonoId = null;
+            acento.loteId = null;
+            acento.valor = null;
+            // acento.modalidade = null;
+		} else if(acento.situacao == 'selecionado' || acento.situacao == 'reservado' ) {
+			acento.usuarioDonoId = usuarioId;
+            acento.loteId = loteId;
+            acento.valor = valor;
+            // acento.modalidade = acento.loteId + ':' + acento.valor;
 		}
-
-        // console.log('encontrou', encontrou);
 	}
-
-	// findEventoById(possibilidades, eventoId) {
-    //
-	// 	var eventoEncontrado = null;
-    //
-	// 	var eventoLength = possibilidades.length;
-    //
-	// 	for (var i = 0; i < eventoLength; i++) {
-	// 		if(possibilidades[i].eventoId == eventoId) {
-	// 		 	eventoEncontrado = possibilidades[i];
-	// 			break;
-	// 		}
-	// 	}
-    //
-	// 	return eventoEncontrado;
-	// }
 
 }
 

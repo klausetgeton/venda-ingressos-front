@@ -59,7 +59,7 @@ export function fetchPossibilidades(eventoId) {
 }
 
 
-export function comprarAcentos(acentos) {
+export function comprarAcentos(acentos, eventoId) {
 
     var usuario = LoginStore.getUser();
 
@@ -73,7 +73,8 @@ export function comprarAcentos(acentos) {
                             method: 'POST',
                             body: JSON.stringify({
                                 usuario,
-                                acentos
+                                acentos,
+                                eventoId
                             })
                         };
 
@@ -83,6 +84,9 @@ export function comprarAcentos(acentos) {
     .then(response => response.json())
     .then(retorno => {
         console.log('RETORNO DA COMPRA', retorno);
+        if(retorno.ingressos_vendidos){
+            this.fetchPossibilidades(eventoId);
+        }
         // dispatcher.dispatch({
         //     type: CONSTANT.ACENTOS_FORAM_COMPRADOS
         // });

@@ -39,12 +39,13 @@ export default AuthenticatedComponent(class VisualizarPossibilidades extends Rea
 	handleBuy() {
 
 		var acentosSelecionados = PossibilidadeStore.getAcentosDoUsuario(this.user.id);
+		const { eventoId } = this.params;
 
 		if( ! acentosSelecionados.length > 0 ) {
 			return alert('Selecione pelo menos um acento!');
 		}
 
-		PossibilidadeActions.comprarAcentos(acentosSelecionados);
+		PossibilidadeActions.comprarAcentos(acentosSelecionados, eventoId);
 	}
 
 	definirModalidade(modalidade){

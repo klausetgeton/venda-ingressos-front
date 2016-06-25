@@ -11,11 +11,13 @@ export default class extends React.Component {
         const { modalidade } = this.props;
 
         const Acentos = this.props.acentos.map((acento, index) => {
-            return <Acento key={index}
-                           eventoId={eventoId}
-                           user={user}
-                           modalidade={modalidade}
-                           {...acento} />
+            // o {...acento} deve vir primeiro, para que se o state modalidade for definido o mesmo nao seja sobrescrito
+            return <Acento
+                       {...acento}
+                       key={index}
+                       eventoId={eventoId}
+                       user={user}
+                       modalidade={modalidade} />
         });
 
         return (
