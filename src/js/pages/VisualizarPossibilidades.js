@@ -33,15 +33,14 @@ export default AuthenticatedComponent(class VisualizarPossibilidades extends Rea
 	}
 
 	handleBuy() {
-		console.log(this);
-
+		
 		var acentosSelecionados = PossibilidadeStore.getAcentosDoUsuario(this.user.id);
 
 		if( ! acentosSelecionados.length > 0 ) {
 			return alert('Selecione pelo menos um acento!');
 		}
 
-		console.log(acentosSelecionados);
+		PossibilidadeActions.comprarAcentos(acentosSelecionados);
 	}
 
 	render() {

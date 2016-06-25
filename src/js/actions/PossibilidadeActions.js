@@ -1,6 +1,18 @@
 import dispatcher from "../dispatcher";
 
 import * as CONSTANT from '../constants/PossibilidadeConstants';
+import LoginStore from '../stores/LoginStore';
+
+// RECEBE AS AÇÕES DO SOCKET
+socket.on('alguem_comprou', (data) => {
+    mudarStatusAcento(data.eventoId,
+        data.posicao,
+        data.situacao,
+        data.usuarioId
+    );
+    console.log('alguem comprou', data)
+});
+
 
 export function mudarStatusAcento(eventoId, posicao, situacao, usuarioId) {
 
@@ -43,12 +55,32 @@ export function fetchPossibilidades(eventoId) {
 }
 
 
-// RECEBE AS AÇÕES DO SOCKET
-socket.on('alguem_comprou', (data) => {
-    mudarStatusAcento(data.eventoId,
-        data.posicao,
-        data.situacao,
-        data.usuarioId
-    );
-    console.log('alguem comprou', data)
-});
+export function comprarAcentos(acentos) {
+
+    var usuario = LoginStore.getUser();
+
+    console.log('USUARIO', usuario);
+    console.log('ACENTOS', acentos);
+
+    const token = LoginStore.getJWT();
+    const fetchConfig = {
+                            headers: { 'Authorization': `Bearer ${token}`,
+                                       'Content-Type':'application/json' },
+                            method: 'POST',
+                            body: JSON.stringify({
+                                usuario,
+                                acentos
+                            })
+                        };
+
+    dispatcher.dispatch({type: CONSTANT.COMPRANDO_ACENTOS});
+
+    fetch(CONSTANT.URL_COMPRAR_ACENTOS, fetchConfig)
+    .then(response => response.json())
+    .then(retorno => {
+        console.log('RETORNO DA COMPRA', retorno);
+        // dispatcher.dispatch({
+        //     type: CONSTANT.ACENTOS_FORAM_COMPRADOS
+        // });
+    });
+}

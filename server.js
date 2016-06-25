@@ -18,6 +18,7 @@ app.use(webpackDevMiddleware(compiler, {
 }));
 app.use(webpackHotMiddleware(compiler));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 // Serve content from 'src' folder
 app.use(express.static('src'));
 
@@ -76,6 +77,32 @@ app.get('/api/possibilidades/:eventoId', (request, response) => {
     }
 });
 
+
+app.post('/api/comprar-acentos', (request, response) => {
+
+    try {
+
+        const fetchConfig = {
+                                headers: { 'Authorization': request.headers.authorization,
+                                           'Content-Type':'application/json' },
+                                method: 'POST',
+                                body: JSON.stringify({
+                                    usuario: request.body.usuario,
+                                    acentos: request.body.acentos
+                                })
+                            };
+
+        fetch('http://ingressos.dev/api/tickets/store', fetchConfig)
+        .then(response => response.json())
+        .then(retorno => {
+            console.log('RETORNO DA COMPRA', retorno);
+            response.status(200).json(retorno);
+        });
+        
+    } catch (e) {
+        response.sendStatus(401);
+    }
+});
 
 
 

@@ -26,9 +26,7 @@ const EventoPossibilidades = class EventoPossibilidades {
 		// var evento = this.findEventoById(eventoId);
         var evento = this.getPossibilidadesEvento(eventoId);
 
-        console.log('evento', evento);
-
-		const fileirasLength = evento.fileiras.length;
+	    const fileirasLength = evento.fileiras.length;
 
 		var encontrou = false;
 
@@ -64,8 +62,7 @@ const EventoPossibilidades = class EventoPossibilidades {
 			}
 		}
 
-
-        console.log('encontrou', encontrou);
+        // console.log('encontrou', encontrou);
 	}
 
 	// findEventoById(possibilidades, eventoId) {
