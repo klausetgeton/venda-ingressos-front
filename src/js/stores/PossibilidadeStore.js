@@ -55,6 +55,17 @@ class PossibilidadeStore extends EventEmitter {
 		return this.evento;
 	}
 
+	getAcentosDoUsuario(usuarioDonoId) {
+		var evento = this.getPossibilidadesEvento();
+
+		var acentosAr = evento.fileiras.map((fileira) =>
+			fileira.acentos.filter((acento) => acento.usuarioDonoId == usuarioDonoId)
+		).filter((acentos) => (acentos.length > 0));
+
+		return [].concat.apply([], acentosAr);
+	}
+
+
 	handleActions(action) {
 
 		switch(action.type) {

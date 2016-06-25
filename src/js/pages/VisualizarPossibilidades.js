@@ -32,6 +32,18 @@ export default AuthenticatedComponent(class VisualizarPossibilidades extends Rea
 		});
 	}
 
+	handleBuy() {
+		console.log(this);
+
+		var acentosSelecionados = PossibilidadeStore.getAcentosDoUsuario(this.user.id);
+
+		if( ! acentosSelecionados.length > 0 ) {
+			return alert('Selecione pelo menos um acento!');
+		}
+
+		console.log(acentosSelecionados);
+	}
+
 	render() {
 
 		const { params } = this.props;
@@ -66,7 +78,7 @@ export default AuthenticatedComponent(class VisualizarPossibilidades extends Rea
 						<li class="legend__item legend__item--reserved">Reservado</li>
 						<li class="legend__item legend__item--selected">Selecionado</li>
 					</ul>
-					<button class="action action--buy">Comprar ingressos</button>
+					<button class="action action--buy" onClick={this.handleBuy.bind(this.props)}>Comprar ingressos</button>
 				</div>
 			</div>
 		);
