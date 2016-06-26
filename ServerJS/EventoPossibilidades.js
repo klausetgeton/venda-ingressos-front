@@ -72,12 +72,12 @@ const EventoPossibilidades = class EventoPossibilidades {
 			acento.usuarioDonoId = null;
             acento.loteId = null;
             acento.valor = null;
-            // acento.modalidade = null;
+            acento.modalidade = null;
 		} else if(acento.situacao == 'selecionado' || acento.situacao == 'reservado' ) {
 			acento.usuarioDonoId = usuarioId;
             acento.loteId = loteId;
             acento.valor = valor;
-            // acento.modalidade = acento.loteId + ':' + acento.valor;
+            acento.modalidade = acento.loteId + ':' + acento.valor;
 		}
 	}
 

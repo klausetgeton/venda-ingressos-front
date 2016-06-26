@@ -54,6 +54,7 @@ export default class Nav extends React.Component {
         const { collapsed } = this.state;
         const loginClass = location.pathname.match(/^\/login/) ? "active" : "";
         const eventosClass = location.pathname.match(/^\/eventos/) ? "active" : "";
+        const meusIngressosClass = location.pathname.match(/^\/meus-ingressos/) ? "active" : "";
         const cadastroClass = location.pathname.match(/^\/cadastro/) ? "active" : "";
 
         const featuredClass = location.pathname === "/" ? "active" : "";
@@ -96,6 +97,9 @@ export default class Nav extends React.Component {
             <div>
                 <li class={featuredClass}>
                     <IndexLink to="/" onClick={this.collapse.bind(this)}>Eventos</IndexLink>
+                </li>
+                <li class={meusIngressosClass}>
+                    <IndexLink to="meus-ingressos" onClick={this.collapse.bind(this)}>Meus Ingressos</IndexLink>
                 </li>
                 <li class={todosClass}>
                     <Link to="todos" onClick={this.collapse.bind(this)}>Todos</Link>
