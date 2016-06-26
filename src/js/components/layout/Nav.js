@@ -57,10 +57,7 @@ export default class Nav extends React.Component {
         const meusIngressosClass = location.pathname.match(/^\/meus-ingressos/) ? "active" : "";
         const cadastroClass = location.pathname.match(/^\/cadastro/) ? "active" : "";
 
-        const featuredClass = location.pathname === "/" ? "active" : "";
-        const archivesClass = location.pathname.match(/^\/favorites/) ? "active" : "";
-        const settingsClass = location.pathname.match(/^\/settings/) ? "active" : "";
-        const todosClass = location.pathname.match(/^\/todos/) ? "active" : "";
+        const indexClass = location.pathname === "/" ? "active" : "";
 
         // Estilos
         const SideNavStyle = {
@@ -78,48 +75,38 @@ export default class Nav extends React.Component {
             }
         }
 
-        var loginOrLogout;
+        var acoesLogadoDeslogado;
         if (this.state.isUserLoggedIn) {
-            loginOrLogout = (
-                <li>
-                    <a onClick={this.logout.bind(this)}>Logout</a>
-                </li>
+            acoesLogadoDeslogado = (
+                <span>
+                    <li class={meusIngressosClass}>
+                        <IndexLink to="meus-ingressos" onClick={this.collapse.bind(this)}>Meus Ingressos</IndexLink>
+                    </li>
+                    <li>
+                        <a onClick={this.logout.bind(this)}>Sair</a>
+                    </li>
+                </span>
             );
         } else {
-            loginOrLogout = (
-                <li class={loginClass}>
-                    <Link to="login" onClick={this.collapse.bind(this)}>Login</Link>
-                </li>
+            acoesLogadoDeslogado = (
+                <span>
+                    <li class={loginClass}>
+                        <Link to="login" onClick={this.collapse.bind(this)}>Login</Link>
+                    </li>
+                    <li class={cadastroClass}>
+                        <Link to="cadastro" onClick={this.collapse.bind(this)}>Cadastro</Link>
+                    </li>
+                </span>
             );
         }
 
         const navOptions = (
             <div>
-                <li class={featuredClass}>
+                <li class={indexClass}>
                     <IndexLink to="/" onClick={this.collapse.bind(this)}>Eventos</IndexLink>
                 </li>
-                <li class={cadastroClass}>
-                    <Link to="cadastro" onClick={this.collapse.bind(this)}>Cadastro</Link>
-                </li>
-                <li class={meusIngressosClass}>
-                    <IndexLink to="meus-ingressos" onClick={this.collapse.bind(this)}>Meus Ingressos</IndexLink>
-                </li>
-                <li class={todosClass}>
-                    <Link to="todos" onClick={this.collapse.bind(this)}>Todos</Link>
-                </li>
-                <li class={settingsClass}>
-                    <Link to="settings" onClick={this.collapse.bind(this)}>Settings</Link>
-                </li>
 
-
-                <li class={loginClass}>
-                    <Link to="signup" onClick={this.collapse.bind(this)}>Signup</Link>
-                </li>
-                <li class={loginClass}>
-                    <Link to="home" onClick={this.collapse.bind(this)}>Home (Auth Required)</Link>
-                </li>
-
-                { loginOrLogout }
+                { acoesLogadoDeslogado }
             </div>
         );
 
