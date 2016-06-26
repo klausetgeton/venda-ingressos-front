@@ -21,8 +21,8 @@ import ListagemEventos from "./pages/ListagemEventos";
 import ComprarIngresso from "./pages/ComprarIngresso";
 import VisualizarPossibilidades from "./pages/VisualizarPossibilidades";
 import MeusIngressos from "./pages/MeusIngressos";
-import Login from './components/Login';
-import Cadastro from './components/Cadastro';
+import Login from './pages/Login';
+import Cadastro from './pages/Cadastro';
 
 // Ja tenta realizar o login do usuário que estava logado, nao tem controle quando o token vai expirar
 LoginActions.attemptToLoginPreviousUser();

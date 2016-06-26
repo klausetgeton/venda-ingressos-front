@@ -80,15 +80,15 @@ export function comprarAcentos(acentos, eventoId) {
 
     dispatcher.dispatch({type: CONSTANT.COMPRANDO_ACENTOS});
 
-    fetch(CONSTANT.URL_COMPRAR_ACENTOS, fetchConfig)
-    .then(response => response.json())
-    .then(retorno => {
-        console.log('RETORNO DA COMPRA', retorno);
-        if(retorno.ingressos_vendidos){
-            this.fetchPossibilidades(eventoId);
-        }
-        // dispatcher.dispatch({
-        //     type: CONSTANT.ACENTOS_FORAM_COMPRADOS
-        // });
-    });
+    return fetch(CONSTANT.URL_COMPRAR_ACENTOS, fetchConfig)
+    .then(response => response.json());
+    // .then(retorno => {
+    //     // console.log('RETORNO DA COMPRA', retorno);
+    //     // if(retorno.ingressos_vendidos) {
+    //     //     this.fetchPossibilidades(eventoId);
+    //     // }
+    //     // dispatcher.dispatch({
+    //     //     type: CONSTANT.ACENTOS_FORAM_COMPRADOS
+    //     // });
+    // });
 }

@@ -3,6 +3,7 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import Fileira from "../components/Fileira";
 import PossibilidadeStore from '../stores/PossibilidadeStore';
 import * as PossibilidadeActions from '../actions/PossibilidadeActions';
+import { browserHistory } from 'react-router';
 
 
 import OpcaoModalidade from "../components/OpcaoModalidade";
@@ -45,7 +46,16 @@ export default AuthenticatedComponent(class VisualizarPossibilidades extends Rea
 			return alert('Selecione pelo menos um acento!');
 		}
 
-		PossibilidadeActions.comprarAcentos(acentosSelecionados, eventoId);
+		PossibilidadeActions.comprarAcentos(acentosSelecionados, eventoId).then(retorno => {
+	        console.log('RETORNO DA COMPRA', retorno);
+	        if(retorno.ingressos_vendidos) {
+	            PossibilidadeActions.fetchPossibilidades(eventoId);
+				alert('Ingressos comprados com sucesso!');
+				browserHistory.push('meus-ingressos');
+	        } else {
+				alert('Falha ao comprar os ingresso!');
+			}
+	    });
 	}
 
 	definirModalidade(modalidade){
