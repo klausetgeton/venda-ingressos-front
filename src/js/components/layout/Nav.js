@@ -98,14 +98,14 @@ export default class Nav extends React.Component {
                 <li class={featuredClass}>
                     <IndexLink to="/" onClick={this.collapse.bind(this)}>Eventos</IndexLink>
                 </li>
+                <li class={cadastroClass}>
+                    <Link to="cadastro" onClick={this.collapse.bind(this)}>Cadastro</Link>
+                </li>
                 <li class={meusIngressosClass}>
                     <IndexLink to="meus-ingressos" onClick={this.collapse.bind(this)}>Meus Ingressos</IndexLink>
                 </li>
                 <li class={todosClass}>
                     <Link to="todos" onClick={this.collapse.bind(this)}>Todos</Link>
-                </li>
-                <li class={cadastroClass}>
-                    <Link to="cadastro" onClick={this.collapse.bind(this)}>Cadastro</Link>
                 </li>
                 <li class={settingsClass}>
                     <Link to="settings" onClick={this.collapse.bind(this)}>Settings</Link>

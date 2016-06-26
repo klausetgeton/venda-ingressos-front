@@ -59,14 +59,16 @@ class AuthService {
     //     .then(usuario => callBack(usuario));
     // }
 
-    signup(email, password, extra) {
+    signup(name, email, password) {
         return this.handleAuth(when(request({
             url: SIGNUP_URL,
             method: 'POST',
             crossOrigin: true,
             type: 'json',
             data: {
-                email, password
+                name,
+                email,
+                password
             }
         })));
     }

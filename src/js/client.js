@@ -21,7 +21,7 @@ import Todos from "./pages/Todos";
 import Layout from "./pages/Layout";
 import Settings from "./pages/Settings";
 // import Login from "./pages/Login";
-import Cadastro from "./pages/Cadastro";
+// import Cadastro from "./pages/Cadastro";
 import ListagemEventos from "./pages/ListagemEventos";
 import ComprarIngresso from "./pages/ComprarIngresso";
 import VisualizarPossibilidades from "./pages/VisualizarPossibilidades";
@@ -29,6 +29,7 @@ import MeusIngressos from "./pages/MeusIngressos";
 
 // PAGINA EXTRAS
 import Login from './components/Login';
+import Cadastro from './components/Cadastro';
 import Signup from './components/Signup';
 import Home from './components/Home';
 

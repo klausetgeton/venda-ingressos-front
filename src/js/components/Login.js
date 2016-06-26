@@ -1,6 +1,4 @@
 import React from 'react';
-// import React from 'react/addons';
-// import ReactMixin from 'react-mixin';
 import Auth from '../services/AuthService';
 
 export default class Login extends React.Component {
@@ -16,7 +14,7 @@ export default class Login extends React.Component {
   login(e) {
     e.preventDefault();
 
-    const nextDestiny = this.props.location.state.nextPathname;
+    const nextDestiny = (this.props.location.state) ? this.props.location.state.nextPathname : '/';
 
     Auth.afterLoginRedirectTo(nextDestiny).attempt(this.state.user, this.state.password)
       .catch(function(err) {
