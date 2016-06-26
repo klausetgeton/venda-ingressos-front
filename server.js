@@ -25,7 +25,6 @@ app.use(express.static('src'));
 
 var EventoPossibilidades = require("./ServerJS/EventoPossibilidades.js");
 const SocketAction = require("./ServerJS/SocketAction.js");
-var POSSIBILIDADES = require("./possibilidades.js");
 
 
 
@@ -39,13 +38,6 @@ const socketIO = require('socket.io')(server);
 //////////////////////////////////////////////////////
 // Routes
 //////////////////////////////////////////////////////
-app.get('/api/possibilidades', (request, response) => {
-    try {
-        response.status(200).json(POSSIBILIDADES);
-    } catch (e) {
-        response.sendStatus(401);
-    }
-});
 
 // https://www.npmjs.com/package/node-fetch
 // https://scotch.io/tutorials/use-expressjs-to-get-url-and-post-parameters
@@ -136,11 +128,8 @@ socketIO.on('connection', function(client) {
 	client.emit('messages', { hello : 'its me' });
 
     client.on('comprou', function(dadosCompra) {
-
         EventoPossibilidades.setNovoStatusPossibilidade(dadosCompra);
-        // SocketAction.setNovoStatusPossibilidade(POSSIBILIDADES, dadosCompra);
-        console.log(POSSIBILIDADES, dadosCompra);
+        console.log(dadosCompra);
 		client.broadcast.emit('alguem_comprou', dadosCompra);
-
 	});
 });
