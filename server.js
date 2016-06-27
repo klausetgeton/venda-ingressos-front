@@ -124,12 +124,16 @@ server.listen(PORT, (error) => {
 // Socket actions
 socketIO.on('connection', function(client) {
 	console.log('Usuario conectou!');
-
-	client.emit('messages', { hello : 'its me' });
+	// client.emit('messages', { hello : 'its me' });
 
     client.on('comprou', function(dadosCompra) {
-        EventoPossibilidades.setNovoStatusPossibilidade(dadosCompra);
-        console.log(dadosCompra);
-		client.broadcast.emit('alguem_comprou', dadosCompra);
+        // Se puder trocar a situacao do acento
+        if(EventoPossibilidades.setNovoStatusPossibilidade(dadosCompra)){
+            console.log(dadosCompra);
+    		client.broadcast.emit('alguem_comprou', dadosCompra);
+        } else {
+            var possibilidadeJaUtilizada = EventoPossibilidades.procurarAcentoEvento(dadosCompra.eventoId, dadosCompra.posicao);
+            client.emit('alguem_comprou', possibilidadeJaUtilizada);
+        }
 	});
 });

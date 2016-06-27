@@ -66,6 +66,10 @@ const EventoPossibilidades = class EventoPossibilidades {
 
         var acento = this.procurarAcentoEvento(eventoId, posicao);
 
+        if(acento.usuarioDonoId && acento.usuarioDonoId != usuarioId) {
+            return false;
+        }
+
         acento.situacao = situacao;
 		// Liberar o acento para outro usuario utilizar
 		if(acento.situacao == 'livre'){
@@ -79,6 +83,8 @@ const EventoPossibilidades = class EventoPossibilidades {
             acento.valor = valor;
             acento.modalidade = acento.loteId + ':' + acento.valor;
 		}
+
+        return true;
 	}
 
 }
